@@ -1,0 +1,72 @@
+body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .card {
+            width: 80%;
+            margin: auto;
+            margin-top: 5%;
+            border-radius: 20px; /* Reduced radius - play with values as you please*/
+            border-top-width: 1px; /* Thinner top border */
+            border-right-width: 5px; /* Thicker right border */
+            border-bottom-width: 5px; /* Thicker bottom border */
+            border-left-width: 3px; /* Different thickness on the left border */
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            border-color: #b1b1b1;
+          }
+        .header {
+             background-color: #00bcd4;
+            color: white;
+            padding: 10px;
+             text-align: left;
+        }
+        .container {
+           display: flex;
+            flex-direction: column;
+        }
+        .sample-image {
+            width: 500px;
+            display: block;
+            margin: 20px auto;  /* Centering the image */
+            border-radius: 10px;
+        }
+        .separator {
+           border-bottom: 2px solid rgb(206, 206, 206); /*Horizontal line styles*/
+            margin: 5px auto;
+             width: 95%;
+        }
+        .bottom-row {
+             display: flex;
+            align-items: center;
+             margin: auto;
+            padding: 20px;
+            width: 80%;
+           
+        }
+       .contact-icon {
+           width: 300px;
+           margin-left: 50px;
+
+          
+        }
+        .contact-info-container {
+             flex: 1;
+            padding-left: 20px;
+            margin-left: 10%; /* Add margin between icon and contact info */
+           border-left: 3px solid rgb(71, 71, 71);
+           
+        }
+        .contact-info {
+            text-align: center;
+            
+        }
+         .contact-info a {
+           display: block;
+            margin-bottom: 5px;
+            color: #333;
+            text-decoration: none;
+        }

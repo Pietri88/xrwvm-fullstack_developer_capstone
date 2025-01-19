@@ -124,3 +124,14 @@ img{
     text-align:center;
     box-shadow: 2px 2px 3px #999;  
 }
+.sample-image {
+    max-width: 80%;
+    display: block;
+    margin: 20px auto;  /* Centering the image */
+    border-radius: 10px;
+}
+.contact-icon {
+           width: 80px;
+          
+          
+        }
