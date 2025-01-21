@@ -38,38 +38,32 @@ def logout_request(request):
 
 
 @csrf_exempt
-def registration(request):
-    # context = {}
-    data = json.loads(request.body)
-    username = data['userName']
-    password = data['password']
-    first_name = data['firstName']
-    last_name = data['lastName']
-    email = data['email']
-    username_exist = False
-    # email_exist = False
-    try:
-        # Check if user already exists
-        User.objects.get(username=username)
-        username_exist = True
-    except Exception as err:
-        # If not, simply log this is a new user
-        logger.debug("{} is new user".format(username))
-    # If it is a new user
-    if not username_exist:
-        # Create user in auth_user table
-        user = User.objects.create_user(username=username,
-                                        first_name=first_name,
-                                        last_name=last_name,
-                                        password=password,
-                                        email=email)
-        # Login the user and redirect to list page
-        login(request, user)
-        data = {"userName": username, "status": "Authenticated"}
-        return JsonResponse(data)
-    else:
-        data = {"userName": username, "error": "Already Registered"}
-        return JsonResponse(data)
+ def registration(request):
+     data = json.loads(request.body)
+     username = data['userName']
+     password = data['password']
+     first_name = data['firstName']
+     last_name = data['lastName']
+     email = data['email']
+     username_exist = False
+     try:
+         User.objects.get(username=username)
+         username_exist = True
+     except Exception as err: # Correcting the exception variable
+         # If not, log this is a new user
+         logger.debug("{} is new user".format(username))
+     if not username_exist:
+         user = User.objects.create_user(username=username,
+                                         first_name=first_name,
+                                         last_name=last_name,
+                                         password=password,
+                                         email=email)
+         login(request, user)
+         data = {"userName": username, "status": "Authenticated"}
+         return JsonResponse(data)
+     else:
+         data = {"userName": username, "error": "Already Registered"}
+         return JsonResponse(data)
 
 
 def get_cars(request):
@@ -117,13 +111,14 @@ def get_dealer_reviews(request, dealer_id):
 
 
 def add_review(request):
-    if not request.user.is_anonymous:
-        # data = json.loads(request.body)
-        try:
-            # response = post_review(data)
-            return JsonResponse({"status": 200})
-        except Exception as err:
-            return JsonResponse({"status": 401,
-                                 "message": "Error in posting review: {err}"})
-    else:
-        return JsonResponse({"status": 403, "message": "Unauthorized"})
+      if not request.user.is_anonymous:
+          try:
+            data = json.loads(request.body)  # Load data from the request body
+            response = post_review(data)  # Make sure your post_review function handles responses correctly
+            return JsonResponse({"status": 200, "message": "Review added successfully", "review_data": data}) # Include data in the response
+
+          except Exception as err:
+              logger.exception("Exception in add_review %s", err)
+              return JsonResponse({"status": 401, "message": f"Error in posting review: {str(err)}"}, status=400)
+      else:
+          return JsonResponse({"status": 403, "message": "Unauthorized"}, status=403)
